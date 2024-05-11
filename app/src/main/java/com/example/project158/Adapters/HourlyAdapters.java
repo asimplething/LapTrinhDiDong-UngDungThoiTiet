@@ -42,7 +42,7 @@ public class HourlyAdapters extends RecyclerView.Adapter<HourlyAdapters.viewhold
 
         Glide.with(context)
                 .load(drawableResourceId)
-                .into(holder.pic);
+                .into(holder.picHour);
     }
 
     @Override
@@ -52,13 +52,13 @@ public class HourlyAdapters extends RecyclerView.Adapter<HourlyAdapters.viewhold
 
     public class viewholder extends RecyclerView.ViewHolder {
         TextView hourTxt, tempTxt;
-        ImageView pic;
+        ImageView picHour;
 
         public viewholder(@NonNull View itemView) {
             super(itemView);
             hourTxt = itemView.findViewById(R.id.hourTxt);
             tempTxt = itemView.findViewById(R.id.tempTxt);
-            pic = itemView.findViewById(R.id.pic);
+            picHour = itemView.findViewById(R.id.picHour);
         }
     }
 }
