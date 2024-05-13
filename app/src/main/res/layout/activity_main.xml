@@ -39,7 +39,7 @@
                 android:id="@+id/textViewLocation"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="72dp"
+                android:layout_marginTop="60dp"
                 android:text="Nation, City"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
@@ -49,7 +49,7 @@
                 android:id="@+id/textViewWeather"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="15dp"
                 android:text="Mostly Cloudy"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
@@ -57,17 +57,17 @@
 
             <ImageView
                 android:id="@+id/imageViewWeather"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="134dp"
+                android:layout_height="121dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:src="@drawable/cloudy_sunny" />
 
             <TextView
                 android:id="@+id/textViewDayTime"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="14dp"
                 android:text="Mon June 17 | 10:00 AM"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
