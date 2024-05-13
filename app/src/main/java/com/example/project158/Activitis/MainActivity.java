@@ -45,7 +45,7 @@ ImageView imgVWeather;
         initRecyclerview();
         Anhxa();
         setVariable();
-        APIService.servieapi.getWeatherDay("4c57a8be9b2b4def8d833930240905","Tokyo").enqueue(new Callback<ResponseWrapper>() {
+        APIService.servieapi.getWeatherDay("4c57a8be9b2b4def8d833930240905","Singapore").enqueue(new Callback<ResponseWrapper>() {
             @Override
             public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
                 if (response.isSuccessful()) {
