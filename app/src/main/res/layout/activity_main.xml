@@ -122,7 +122,7 @@
                             android:layout_height="34dp"
                             android:layout_gravity="center"
 
-                            app:srcCompat="@drawable/rain" />
+                            app:srcCompat="@drawable/sunny" />
 
                         <TextView
                             android:id="@+id/textViewRate1"
@@ -137,7 +137,7 @@
                             android:id="@+id/textViewStatus"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:text="Rain"
+                            android:text="UV"
                             android:textAlignment="center"
                             android:textColor="@color/white" />
                     </LinearLayout>
