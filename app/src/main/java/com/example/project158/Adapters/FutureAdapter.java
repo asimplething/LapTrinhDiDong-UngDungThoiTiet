@@ -64,7 +64,7 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder
             statusTxt = itemView.findViewById(R.id.statusTxt);
             lowTxt = itemView.findViewById(R.id.lowTxt);
             highTxt = itemView.findViewById(R.id.highTxt);
-            pic = itemView.findViewById(R.id.picHour);
+            pic = itemView.findViewById(R.id.picFuture);
         }
 
 

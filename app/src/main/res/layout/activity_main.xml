@@ -11,11 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/scrollView">
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
+            android:backgroundTint="@color/background_color"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
@@ -243,7 +245,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
                     android:text="Next 7 day>"
-
                     android:textColor="@color/text_color"
                     android:textStyle="bold" />
             </LinearLayout>
