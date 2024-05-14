@@ -11,16 +11,16 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.project158.Domains.Hourly;
+import com.example.project158.Domains.Hour;
 import com.example.project158.R;
 
 import java.util.ArrayList;
 
 public class HourlyAdapters extends RecyclerView.Adapter<HourlyAdapters.viewholder> {
-    ArrayList<Hourly> items;
+    ArrayList<Hour> items;
     Context context;
 
-    public HourlyAdapters(ArrayList<Hourly> items) {
+    public HourlyAdapters(ArrayList<Hour> items) {
         this.items = items;
     }
 
@@ -34,14 +34,11 @@ public class HourlyAdapters extends RecyclerView.Adapter<HourlyAdapters.viewhold
 
     @Override
     public void onBindViewHolder(@NonNull HourlyAdapters.viewholder holder, int position) {
-        holder.hourTxt.setText(items.get(position).getHour());
-        holder.tempTxt.setText(items.get(position).getTemp() + "°");
-
-        int drawableResourceId = holder.itemView.getResources()
-                .getIdentifier(items.get(position).getPicPath(), "drawable", holder.itemView.getContext().getPackageName());
+        holder.hourTxt.setText(items.get(position).getTime().substring(11)); // chỉ lấy giờ trong ngày, không lấy cả thời gian ngày
+        holder.tempTxt.setText(items.get(position).getTemp_c() + "°");
 
         Glide.with(context)
-                .load(drawableResourceId)
+                .load("https:"+items.get(position).getCondition().getIconPath())
                 .into(holder.picHour);
     }
 

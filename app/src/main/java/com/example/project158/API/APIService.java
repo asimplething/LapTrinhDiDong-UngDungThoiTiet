@@ -1,7 +1,5 @@
 package com.example.project158.API;
 
-import com.example.project158.Domains.Hourly;
-import com.example.project158.Domains.Current;
 import com.example.project158.Domains.ResponseWrapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -21,5 +19,7 @@ public interface APIService {
             .build()
             .create(APIService.class);
 @GET("current.json")
-    Call<ResponseWrapper> getWeatherDay(@Query("key") String APIKey, @Query("q") String CityName) ;
+    Call<ResponseWrapper> getWeatherDay(@Query("key") String APIKey, @Query("q") String CityName);
+@GET("forecast.json")
+    Call<ResponseWrapper> getForeCastDay(@Query("key") String APIKey, @Query("q") String CityName);
 }

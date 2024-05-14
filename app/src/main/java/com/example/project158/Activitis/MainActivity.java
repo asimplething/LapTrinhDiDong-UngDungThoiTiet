@@ -3,6 +3,7 @@ package com.example.project158.Activitis;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -19,7 +20,7 @@ import com.bumptech.glide.Glide;
 import com.example.project158.API.APIService;
 import com.example.project158.Adapters.HourlyAdapters;
 import com.example.project158.Domains.Current;
-import com.example.project158.Domains.Hourly;
+import com.example.project158.Domains.Hour;
 import com.example.project158.Domains.ResponseWrapper;
 import com.example.project158.R;
 
@@ -46,10 +47,10 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("");
         // Lấy dữ liệu local của user
         oldUserLocation = getSharedPreferences("UserData", MODE_PRIVATE);
-        userLocation=  oldUserLocation.getString("location","VietNam");
+        userLocation =  oldUserLocation.getString("location","VietNam");
         //call api cho địa điểm cố định ban đầu
-        callWeatherAPI(userLocation);
-        initRecyclerview();
+        //callWeatherAPI(userLocation);
+        callForecastAPI(userLocation);
         Anhxa();
         setVariable();
 
@@ -70,15 +71,51 @@ public class MainActivity extends AppCompatActivity {
                 } else {
                     String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    Log.d("Call API (Weather): ", errorMessage);
                 }
 
             }
 
             @Override
             public void onFailure(Call<ResponseWrapper> call, Throwable t) {
-                Toast.makeText(getApplicationContext(), "Request failed: " + t.getMessage() + t.getCause(), Toast.LENGTH_SHORT).show();
+                String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
+                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                Log.d("Call API (Weather): ", failureMessage);
             }
         });
+    }
+    // gọi API lấy dữ liệu dự đoán nhiệt độ theo giờ trong ngày
+    private void callForecastAPI(String currentCity)
+    {
+        APIService.servieapi.getForeCastDay("4c57a8be9b2b4def8d833930240905", currentCity).enqueue(new Callback<ResponseWrapper>() {
+            @Override
+            public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
+                if (response.isSuccessful()) {
+                    ResponseWrapper responseWrapper = response.body();
+                    if(responseWrapper!=null)
+                    {
+                        Current location = responseWrapper.getLocation();
+                        Current current = responseWrapper.getCurrent();
+                        ArrayList<Hour> hours = responseWrapper.getForecast().getForecastDay().get(0).getHours();
+                        setLocationAndWeather(current, location);
+                        initRecyclerview(hours);
+                    }
+
+                } else {
+                    String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    Log.d("Call API (Forecast): ", errorMessage);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseWrapper> call, Throwable t) {
+                String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
+                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                Log.d("Call API (Forecast): ", failureMessage);
+            }
+        });
+
     }
     // Chỉnh lại dữ liệu trên app
     private void setLocationAndWeather(Current current, Current location) {
@@ -116,20 +153,10 @@ public class MainActivity extends AppCompatActivity {
         next7dayBtn = findViewById(R.id.nextBtn);
     }
 
-    private void initRecyclerview() {
-        ArrayList<Hourly> items = new ArrayList<>();
-
-        items.add(new Hourly("9 pm", 28, "cloudy"));
-        items.add(new Hourly("10 pm", 29, "sunny"));
-        items.add(new Hourly("11 pm", 30, "wind"));
-        items.add(new Hourly("12 pm", 31, "rainy"));
-        items.add(new Hourly("1 am", 32, "storm"));
-
-
+    private void initRecyclerview(ArrayList<Hour> hours) {
         recyclerView = findViewById(R.id.view1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-
-        adapterHourly = new HourlyAdapters(items);
+        adapterHourly = new HourlyAdapters(hours);
         recyclerView.setAdapter(adapterHourly);
 
 
@@ -163,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_SELECT_CITY && resultCode == RESULT_OK && data != null) {
             String selectedCity = data.getStringExtra("selectedCity");
             callWeatherAPI(selectedCity);
+            callForecastAPI(selectedCity);
         }
     }
 }

@@ -58,7 +58,7 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
         cityList.add("San Diego");
         cityList.add("Dallas");
         cityList.add("San Jose");
-        cityList.add("Austin");
+        cityList.add("HaNoi");
 
         // Add a text changed listener to filter cities
         cityEditText.addTextChangedListener(new TextWatcher() {

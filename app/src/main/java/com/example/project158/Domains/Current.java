@@ -6,7 +6,7 @@ public class Current {
     @SerializedName("localtime")
     private String time;
     @SerializedName("temp_c")
-    private int temp;
+    private String temp;
     @SerializedName("condition")
     private Condition condition;
     @SerializedName("country")
@@ -30,11 +30,11 @@ public class Current {
         this.time = time;
     }
 
-    public int getTemp() {
+    public String getTemp() {
         return temp;
     }
 
-    public void setTemp(int temp) {
+    public void setTemp(String temp) {
         this.temp = temp;
     }
 
