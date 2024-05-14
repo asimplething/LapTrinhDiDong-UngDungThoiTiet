@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -35,58 +37,33 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private TextView next7dayBtn, tvDayTimeCur, tvTempCur, tvConditionCur, tvLocationCur, tvUVCur, tvWindSpeedCur, tvHumidCur;
 
-    ImageView imgVWeather;
-    SharedPreferences oldUserLocation;
-    String userLocation;
+    private View loadingLayout;
+    private ProgressBar progressBar;
+    private ImageView imgVWeather;
+    private SharedPreferences oldUserLocation;
+    private String userLocation;
+    Toolbar toolbar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        Anhxa();
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("");
         // Lấy dữ liệu local của user
         oldUserLocation = getSharedPreferences("UserData", MODE_PRIVATE);
         userLocation =  oldUserLocation.getString("location","VietNam");
         //call api cho địa điểm cố định ban đầu
-        //callWeatherAPI(userLocation);
-        callForecastAPI(userLocation);
-        Anhxa();
+        callWeatherAPI(userLocation);
         setVariable();
 
     }
-    //gọi API
-    private void callWeatherAPI(String currentCity) {
-        APIService.servieapi.getWeatherDay("4c57a8be9b2b4def8d833930240905", currentCity).enqueue(new Callback<ResponseWrapper>() {
-            @Override
-            public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
-                if (response.isSuccessful()) {
-                    ResponseWrapper responseWrapper = response.body();
-                    Current location = responseWrapper.getLocation();
-                    Current current = responseWrapper.getCurrent();
-                    if (location != null && current != null) {
-                        // Hiển thị dữ liệu lên các view
-                        setLocationAndWeather(current, location);
-                    }
-                } else {
-                    String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
-                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                    Log.d("Call API (Weather): ", errorMessage);
-                }
-
-            }
-
-            @Override
-            public void onFailure(Call<ResponseWrapper> call, Throwable t) {
-                String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
-                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
-                Log.d("Call API (Weather): ", failureMessage);
-            }
-        });
-    }
     // gọi API lấy dữ liệu dự đoán nhiệt độ theo giờ trong ngày
-    private void callForecastAPI(String currentCity)
+    private void callWeatherAPI(String currentCity)
     {
+        // show loading screen chờ call xong api
+        loadingLayout.setVisibility(View.VISIBLE);
+        progressBar.setVisibility(View.VISIBLE);
         APIService.servieapi.getForeCastDay("4c57a8be9b2b4def8d833930240905", currentCity).enqueue(new Callback<ResponseWrapper>() {
             @Override
             public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
@@ -100,7 +77,8 @@ public class MainActivity extends AppCompatActivity {
                         setLocationAndWeather(current, location);
                         initRecyclerview(hours);
                     }
-
+                    loadingLayout.setVisibility(View.GONE);
+                    progressBar.setVisibility(View.GONE);
                 } else {
                     String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
@@ -140,12 +118,18 @@ public class MainActivity extends AppCompatActivity {
 
     //Ánh xạ các view trong file layout:
     private void Anhxa() {
+        //toolbar
+        toolbar = findViewById(R.id.toolbar);
+        // loading view
+        loadingLayout = findViewById(R.id.loadingLayout);
+        progressBar = findViewById(R.id.progressBar);
+        //
         tvLocationCur = findViewById(R.id.textViewLocation);
         tvConditionCur = findViewById(R.id.textViewWeather);
         tvDayTimeCur = findViewById(R.id.textViewDayTime);
         tvTempCur = findViewById(R.id.textViewTemp);
         imgVWeather = findViewById(R.id.imageViewWeather);
-
+        //
         tvUVCur = findViewById(R.id.textViewRate1);
         tvWindSpeedCur = findViewById(R.id.textViewRate2);
         tvHumidCur = findViewById(R.id.textViewRate3);
@@ -190,7 +174,6 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == REQUEST_CODE_SELECT_CITY && resultCode == RESULT_OK && data != null) {
             String selectedCity = data.getStringExtra("selectedCity");
             callWeatherAPI(selectedCity);
-            callForecastAPI(selectedCity);
         }
     }
 }

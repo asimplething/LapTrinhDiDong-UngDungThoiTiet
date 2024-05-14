@@ -82,6 +82,7 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
                 filteredCityList.add(city);
             }
         }
+        filteredCityList.add(query);
         cityAdapter.notifyDataSetChanged();
     }
 
