@@ -1,4 +1,4 @@
-package com.example.project158.Domains;
+package com.example.ProjectWeather.Domains;
 
 import com.google.gson.annotations.SerializedName;
 

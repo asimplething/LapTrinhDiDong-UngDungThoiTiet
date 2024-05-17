@@ -1,4 +1,4 @@
-package com.example.project158.Adapters;
+package com.example.ProjectWeather.Adapters;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project158.R;
+import com.example.ProjectWeather.R;
 
 import java.util.List;
 
