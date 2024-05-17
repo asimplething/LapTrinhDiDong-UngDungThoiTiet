@@ -19,10 +19,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project158.API.APILocalService;
 import com.example.project158.API.APIService;
 import com.example.project158.Adapters.HourlyAdapters;
 import com.example.project158.Domains.Current;
-import com.example.project158.Domains.Hour;
+import com.example.project158.Domains.HourForecast;
 import com.example.project158.Domains.ResponseWrapper;
 import com.example.project158.R;
 
@@ -64,7 +65,7 @@ public class MainActivity extends AppCompatActivity {
         // show loading screen chờ call xong api
         loadingLayout.setVisibility(View.VISIBLE);
         progressBar.setVisibility(View.VISIBLE);
-        APIService.servieapi.getForeCastDay("4c57a8be9b2b4def8d833930240905", currentCity).enqueue(new Callback<ResponseWrapper>() {
+        APIService.serviceapi.getWeatherDay("4c57a8be9b2b4def8d833930240905", currentCity).enqueue(new Callback<ResponseWrapper>() {
             @Override
             public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
                 if (response.isSuccessful()) {
@@ -73,16 +74,14 @@ public class MainActivity extends AppCompatActivity {
                     {
                         Current location = responseWrapper.getLocation();
                         Current current = responseWrapper.getCurrent();
-                        ArrayList<Hour> hours = responseWrapper.getForecast().getForecastDay().get(0).getHours();
                         setLocationAndWeather(current, location);
-                        initRecyclerview(hours);
                     }
                     loadingLayout.setVisibility(View.GONE);
                     progressBar.setVisibility(View.GONE);
                 } else {
                     String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
-                    Log.d("Call API (Forecast): ", errorMessage);
+                    Log.d("Call API (Weather in Day): ", errorMessage);
                 }
             }
 
@@ -90,7 +89,34 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(Call<ResponseWrapper> call, Throwable t) {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
                 Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
-                Log.d("Call API (Forecast): ", failureMessage);
+                Log.d("Call API (Weather in Day): ", failureMessage);
+            }
+        });
+        APILocalService.serviceapi.getWeatherHourly(currentCity).enqueue(new Callback<ArrayList<HourForecast>>() {
+            @Override
+            public void onResponse(Call<ArrayList<HourForecast>> call, Response<ArrayList<HourForecast>> response) {
+                if(response.isSuccessful())
+                {
+                    ArrayList<HourForecast> hours = response.body();
+                    if(hours!=null)
+                    {
+                        initRecyclerview(hours);
+                    }
+                }
+                else
+                {
+                    String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
+                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    Log.d("Call API (Hourly): ", errorMessage);
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<HourForecast>> call, Throwable t) {
+                String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
+                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                Log.d("Call API (Hourly): ", failureMessage);
             }
         });
 
@@ -137,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         next7dayBtn = findViewById(R.id.nextBtn);
     }
 
-    private void initRecyclerview(ArrayList<Hour> hours) {
+    private void initRecyclerview(ArrayList<HourForecast> hours) {
         recyclerView = findViewById(R.id.view1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
         adapterHourly = new HourlyAdapters(hours);

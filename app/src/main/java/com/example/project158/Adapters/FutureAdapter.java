@@ -11,16 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.project158.Domains.DayForecast;
 import com.example.project158.Domains.FutureDomain;
 import com.example.project158.R;
 
 import java.util.ArrayList;
 
 public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder> {
-    ArrayList<FutureDomain> items;
+    ArrayList<DayForecast> items;
     Context context;
 
-    public FutureAdapter(ArrayList<FutureDomain> items) {
+    public FutureAdapter(ArrayList<DayForecast> items) {
         this.items = items;
     }
 
@@ -34,17 +35,19 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder
 
     @Override
     public void onBindViewHolder(@NonNull FutureAdapter.viewholder holder, int position) {
-        holder.dayTxt.setText(items.get(position).getDay());
-        holder.statusTxt.setText(items.get(position).getStatus());
-        holder.highTxt.setText(items.get(position).getHighTemp() + "°");
-        holder.lowTxt.setText(items.get(position).getLowTemp() + "°");
 
-        int drawableResourceId = holder.itemView.getResources()
-                .getIdentifier(items.get(position).getPicPath(), "drawable", holder.itemView.getContext().getPackageName());
+        String status = items.get(position).getChanceOfRain()+"%";
+        String maxTemp = "Max: "+ items.get(position).getMaxTemperature().substring(0,5) + "°";
+        String minTemp = "Min: " + items.get(position).getMinTemperature().substring(0,5) + "°";
 
-        Glide.with(context)
-                .load(drawableResourceId)
-                .into(holder.pic);
+        holder.dayTxt.setText(items.get(position).getDayOfWeek().substring(0,3)); // chỉ lấy 3 chữ cái đầu của ngày (cho gọn)
+        holder.statusTxt.setText(status);
+        holder.highTxt.setText(maxTemp);
+        holder.lowTxt.setText(minTemp);
+        //holder.pic.setVisibility(View.GONE);
+        //int drawableResourceId = holder.itemView.getResources().getIdentifier(items.get(position).getIcon(), "drawable", holder.itemView.getContext().getPackageName());
+
+        //Glide.with(context).load(drawableResourceId).into(holder.pic);
 
     }
 

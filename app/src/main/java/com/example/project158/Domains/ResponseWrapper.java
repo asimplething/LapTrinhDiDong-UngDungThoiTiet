@@ -7,16 +7,8 @@ public class ResponseWrapper {
     private Current location;
     @SerializedName("current")
     private Current current;
-    @SerializedName("forecast")
-    private Forecast forecast;
 
-    public Forecast getForecast() {
-        return forecast;
-    }
 
-    public void setForecast(Forecast forecast) {
-        this.forecast = forecast;
-    }
 
     public Current getLocation() {
         return location;

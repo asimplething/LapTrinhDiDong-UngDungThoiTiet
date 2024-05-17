@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface APIService {
     public static final String BASE_URL = "https://api.weatherapi.com/v1/";
     Gson gson = new GsonBuilder(). setDateFormat("yyyy MM dd HH:mm: ss").create();
-    APIService servieapi = new Retrofit.Builder()
+    APIService serviceapi = new Retrofit.Builder()
             .baseUrl(BASE_URL)
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
