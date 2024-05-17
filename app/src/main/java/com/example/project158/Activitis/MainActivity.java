@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         //call api cho địa điểm cố định ban đầu
         callWeatherAPI(userLocation);
         setVariable();
-
+        setResult(5);
     }
     // gọi API lấy dữ liệu dự đoán nhiệt độ theo giờ trong ngày
     private void callWeatherAPI(String currentCity)

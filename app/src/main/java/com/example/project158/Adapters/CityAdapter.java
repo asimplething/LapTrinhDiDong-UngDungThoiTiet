@@ -1,5 +1,8 @@
 package com.example.project158.Adapters;
 
+import static android.app.Activity.RESULT_OK;
+
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,8 +18,7 @@ import java.util.List;
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder> {
 
     private List<String> cityList;
-    private OnCityClickListener listener;
-
+    static OnCityClickListener listener;
     public CityAdapter(List<String> cityList, OnCityClickListener listener) {
         this.cityList = cityList;
         this.listener = listener;
@@ -26,7 +28,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     @Override
     public CityViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.viewholder_city, parent, false);
-        return new CityViewHolder(view, listener);
+        return new CityViewHolder(view);
     }
 
     @Override
@@ -42,16 +44,13 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     public interface OnCityClickListener {
         void onCityClick(String city);
     }
-
     public static class CityViewHolder extends RecyclerView.ViewHolder {
 
         private TextView cityTextView;
-        private OnCityClickListener listener;
 
-        public CityViewHolder(@NonNull View itemView, OnCityClickListener listener) {
+        public CityViewHolder(@NonNull View itemView) {
             super(itemView);
             cityTextView = itemView.findViewById(R.id.cityTxt);
-            this.listener = listener;
 
             itemView.setOnClickListener(v -> {
                 int position = getAdapterPosition();
