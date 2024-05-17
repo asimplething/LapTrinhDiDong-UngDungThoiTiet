@@ -158,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
 
         double currentMaxTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * (14 - 14) / 24) - (49 * Math.PI) / 32);
         double currentMinTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * (4 - 14) / 24));
-        String minMax = "H:" + String.valueOf(currentMaxTemperature).substring(0,5) + "\t\t\t" + "L:" + String.valueOf(currentMinTemperature).substring(0,5) ;
+        String minMax = "H:" + String.valueOf(currentMaxTemperature).substring(0,2) + "\t\t\t" + "L:" + String.valueOf(currentMinTemperature).substring(0,2) ;
         minMaxText.setText(minMax);
     }
 

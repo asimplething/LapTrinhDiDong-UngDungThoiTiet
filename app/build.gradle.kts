@@ -40,8 +40,9 @@ dependencies {
     //load ảnh với Glide
     implementation ("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor ("com.github.bumptech.glide:compiler:4.14.2")
-
-//Gson và Volley:
+    //google service
+    implementation ("com.google.android.gms:play-services-location:21.2.0")
+    //Gson và Volley:
     implementation ("com.squareup.retrofit2:retrofit:2.9.0")
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }

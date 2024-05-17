@@ -15,24 +15,54 @@
         android:layout_marginTop="32dp"
         android:text="Search Your City" />
 
-    <EditText
-        android:id="@+id/cityEdt"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/edittext_bg"
-        android:ems="10"
-        android:hint="type your city"
-        android:inputType="text"
-        android:padding="8dp"
-        android:textColorHint="@color/black"
-        android:textSize="12sp" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/cityView"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp" />
+        android:orientation="horizontal"
+        android:weightSum="6">
+
+        <EditText
+            android:layout_weight="3"
+            android:id="@+id/cityEdt"
+            android:layout_width="180dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/edittext_bg"
+            android:ems="10"
+            android:hint="Type your city"
+            android:inputType="textPostalAddress"
+            android:padding="8dp"
+            android:textColorHint="@color/black"
+            android:textSize="12sp" />
+
+        <TextView
+            android:id="@+id/orText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_weight="1"
+            android:text="or"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/gpsButton"
+            android:layout_width="62dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="2"
+            android:background="@drawable/gradient_background_banner"
+            android:text="GPS"
+            android:textAllCaps="false"
+            app:backgroundTint="@null" />
+    </LinearLayout>
 
     <ProgressBar
         android:id="@+id/progressBar2"
@@ -40,5 +70,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/cityView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp" />
+
 </LinearLayout>
