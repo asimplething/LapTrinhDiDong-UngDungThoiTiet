@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Anhxa();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("WeatherProject");
+        getSupportActionBar().setTitle("ProjectWeather");
         // Lấy dữ liệu local của user
         oldUserLocation = getSharedPreferences("UserData", MODE_PRIVATE);
         userLocation =  oldUserLocation.getString("location","VietNam");
