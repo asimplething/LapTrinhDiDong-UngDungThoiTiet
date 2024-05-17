@@ -76,13 +76,14 @@ public class MainActivity extends AppCompatActivity {
                         Current current = responseWrapper.getCurrent();
                         setLocationAndWeather(current, location);
                     }
-                    loadingLayout.setVisibility(View.GONE);
-                    progressBar.setVisibility(View.GONE);
-                } else {
+                }
+                else {
                     String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
                     Log.d("Call API (Weather in Day): ", errorMessage);
                 }
+                loadingLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
 
             @Override
@@ -90,6 +91,8 @@ public class MainActivity extends AppCompatActivity {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
                 Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
                 Log.d("Call API (Weather in Day): ", failureMessage);
+                loadingLayout.setVisibility(View.GONE);
+                progressBar.setVisibility(View.GONE);
             }
         });
         APILocalService.serviceapi.getWeatherHourly(currentCity).enqueue(new Callback<ArrayList<HourForecast>>() {

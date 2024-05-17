@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.project158.Domains.DayForecast;
-import com.example.project158.Domains.FutureDomain;
 import com.example.project158.R;
 
 import java.util.ArrayList;
@@ -44,8 +43,7 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder
         holder.statusTxt.setText(status);
         holder.highTxt.setText(maxTemp);
         holder.lowTxt.setText(minTemp);
-        //holder.pic.setVisibility(View.GONE);
-        //int drawableResourceId = holder.itemView.getResources().getIdentifier(items.get(position).getIcon(), "drawable", holder.itemView.getContext().getPackageName());
+        holder.pic.setVisibility(View.GONE);
 
         //Glide.with(context).load(drawableResourceId).into(holder.pic);
 
@@ -69,7 +67,5 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder
             highTxt = itemView.findViewById(R.id.highTxt);
             pic = itemView.findViewById(R.id.picFuture);
         }
-
-
     }
 }
