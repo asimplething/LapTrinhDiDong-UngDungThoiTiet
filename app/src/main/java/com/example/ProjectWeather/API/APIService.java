@@ -20,6 +20,4 @@ public interface APIService {
             .create(APIService.class);
 @GET("current.json")
     Call<ResponseWrapper> getWeatherDay(@Query("key") String APIKey, @Query("q") String CityName);
-@GET("forecast.json")
-    Call<ResponseWrapper> getForeCastDay(@Query("key") String APIKey, @Query("q") String CityName);
 }

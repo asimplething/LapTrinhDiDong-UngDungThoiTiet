@@ -1,8 +1,5 @@
 package com.example.ProjectWeather.Adapters;
 
-import static android.app.Activity.RESULT_OK;
-
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +14,11 @@ import java.util.List;
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder> {
 
-    private List<String> cityList;
+    private final List<String> cityList;
     static OnCityClickListener listener;
     public CityAdapter(List<String> cityList, OnCityClickListener listener) {
         this.cityList = cityList;
-        this.listener = listener;
+        CityAdapter.listener = listener;
     }
 
     @NonNull
@@ -46,7 +43,7 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.CityViewHolder
     }
     public static class CityViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView cityTextView;
+        private final TextView cityTextView;
 
         public CityViewHolder(@NonNull View itemView) {
             super(itemView);

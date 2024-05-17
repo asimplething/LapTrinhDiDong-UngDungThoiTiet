@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="Sat"
+        android:textStyle="bold"
         android:textColor="@color/text_color"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -24,7 +25,6 @@
         android:layout_width="45dp"
         android:layout_height="45dp"
         android:layout_marginStart="5dp"
-
         app:layout_constraintBottom_toBottomOf="@+id/dayTxt"
         app:layout_constraintStart_toEndOf="@+id/dayTxt"
         app:layout_constraintTop_toTopOf="@+id/dayTxt"

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.ProjectWeather.Domains.DayForecast;
 import com.example.ProjectWeather.R;
 
@@ -34,17 +35,15 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder
     @Override
     public void onBindViewHolder(@NonNull FutureAdapter.viewholder holder, int position) {
 
-        String status = items.get(position).getChanceOfRain()+"%";
-        String maxTemp = "Max: "+ items.get(position).getMaxTemperature().substring(0,5) + "°";
-        String minTemp = "Min: " + items.get(position).getMinTemperature().substring(0,5) + "°";
+        String status = items.get(position).getChanceOfRain()+"%  raining";
+        String maxTemp = "Max: "+ items.get(position).getMaxTemperature().substring(0,2) + "°";
+        String minTemp = "Min: " + items.get(position).getMinTemperature().substring(0,2) + "°";
 
         holder.dayTxt.setText(items.get(position).getDayOfWeek().substring(0,3)); // chỉ lấy 3 chữ cái đầu của ngày (cho gọn)
         holder.statusTxt.setText(status);
         holder.highTxt.setText(maxTemp);
         holder.lowTxt.setText(minTemp);
-        holder.pic.setVisibility(View.GONE);
-
-        //Glide.with(context).load(drawableResourceId).into(holder.pic);
+        Glide.with(context).load(items.get(position).getIcon()).into(holder.pic);
 
     }
 
@@ -53,7 +52,7 @@ public class FutureAdapter extends RecyclerView.Adapter<FutureAdapter.viewholder
         return items.size();
     }
 
-    public class viewholder extends RecyclerView.ViewHolder {
+    public static class viewholder extends RecyclerView.ViewHolder {
         TextView dayTxt, statusTxt, lowTxt, highTxt;
         ImageView pic;
 

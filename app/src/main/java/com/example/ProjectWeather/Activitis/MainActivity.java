@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -35,8 +36,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView.Adapter adapterHourly;
-    private RecyclerView recyclerView;
     private TextView next7dayBtn, tvDayTimeCur, tvTempCur, tvConditionCur, tvLocationCur, tvUVCur, tvWindSpeedCur, tvHumidCur;
 
     private View loadingLayout;
@@ -45,7 +44,6 @@ public class MainActivity extends AppCompatActivity {
 
     private TextView minMaxText;
     private SharedPreferences oldUserLocation;
-    private String userLocation;
     Toolbar toolbar;
 
     @Override
@@ -57,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Weather Project");
         // Lấy dữ liệu local của user
         oldUserLocation = getSharedPreferences("UserData", MODE_PRIVATE);
-        userLocation =  oldUserLocation.getString("location","VietNam");
+        String userLocation = oldUserLocation.getString("location", "VietNam");
         //call api cho địa điểm cố định ban đầu
         callWeatherAPI(userLocation);
         setVariable();
@@ -71,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         APIService.serviceapi.getWeatherDay("4c57a8be9b2b4def8d833930240905", currentCity).enqueue(new Callback<ResponseWrapper>() {
             @Override
-            public void onResponse(Call<ResponseWrapper> call, Response<ResponseWrapper> response) {
+            public void onResponse(@NonNull Call<ResponseWrapper> call, @NonNull Response<ResponseWrapper> response) {
                 if (response.isSuccessful()) {
                     ResponseWrapper responseWrapper = response.body();
                     if(responseWrapper!=null)
@@ -91,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<ResponseWrapper> call, Throwable t) {
+            public void onFailure(@NonNull Call<ResponseWrapper> call, @NonNull Throwable t) {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
                 Toast.makeText(getApplicationContext(), "Location is not found!", Toast.LENGTH_SHORT).show();
                 Log.d("Call API (Weather in Day): ", failureMessage);
@@ -101,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
         });
         APILocalService.serviceapi.getWeatherHourly(currentCity).enqueue(new Callback<ArrayList<HourForecast>>() {
             @Override
-            public void onResponse(Call<ArrayList<HourForecast>> call, Response<ArrayList<HourForecast>> response) {
+            public void onResponse(@NonNull Call<ArrayList<HourForecast>> call, @NonNull Response<ArrayList<HourForecast>> response) {
                 if(response.isSuccessful())
                 {
                     ArrayList<HourForecast> hours = response.body();
@@ -119,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
             @Override
-            public void onFailure(Call<ArrayList<HourForecast>> call, Throwable t) {
+            public void onFailure(@NonNull Call<ArrayList<HourForecast>> call, @NonNull Throwable t) {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
                 //Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
                 Log.d("Call API (Hourly): ", failureMessage);
@@ -146,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Tính toán nhiệt độ trung bình và nhiệt độ cao/thấp nhất trong ngày
         double currentTemp = Double.parseDouble(current.getTemp());
-        double Temp_avg = 0;
+        double Temp_avg;
         int currentHour = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             currentHour = LocalDateTime.now().getHour();
@@ -156,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         else
             Temp_avg = currentTemp - Math.sin(((2 * Math.PI) * (currentHour - 14) / 24) - (49 * Math.PI) / 32) * 4;
 
-        double currentMaxTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * (14 - 14) / 24) - (49 * Math.PI) / 32);
+        double currentMaxTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * 0 / 24) - (49 * Math.PI) / 32);
         double currentMinTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * (4 - 14) / 24));
         String minMax = "H:" + String.valueOf(currentMaxTemperature).substring(0,2) + "\t\t\t" + "L:" + String.valueOf(currentMinTemperature).substring(0,2) ;
         minMaxText.setText(minMax);
@@ -189,9 +187,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initRecyclerview(ArrayList<HourForecast> hours) {
-        recyclerView = findViewById(R.id.view1);
+        RecyclerView recyclerView = findViewById(R.id.view1);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        adapterHourly = new HourlyAdapters(hours);
+        RecyclerView.Adapter adapterHourly = new HourlyAdapters(hours);
         recyclerView.setAdapter(adapterHourly);
 
 

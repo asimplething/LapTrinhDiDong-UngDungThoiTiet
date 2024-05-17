@@ -47,7 +47,7 @@ public class HourlyAdapters extends RecyclerView.Adapter<HourlyAdapters.viewhold
         return items.size();
     }
 
-    public class viewholder extends RecyclerView.ViewHolder {
+    public static class viewholder extends RecyclerView.ViewHolder {
         TextView hourTxt, tempTxt;
         ImageView picHour;
 

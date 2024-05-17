@@ -25,8 +25,6 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class FutureActivity extends AppCompatActivity {
-    private RecyclerView.Adapter adapterTommorow;
-    private RecyclerView recyclerView;
 
 
     @Override
@@ -44,7 +42,7 @@ public class FutureActivity extends AppCompatActivity {
 
         APILocalService.serviceapi.getWeatherDaily(userLocation).enqueue(new Callback<ArrayList<DayForecast>>() {
             @Override
-            public void onResponse(@NonNull Call<ArrayList<DayForecast>> call, Response<ArrayList<DayForecast>> response) {
+            public void onResponse(@NonNull Call<ArrayList<DayForecast>> call, @NonNull Response<ArrayList<DayForecast>> response) {
                 if(response.isSuccessful())
                 {
                     ArrayList <DayForecast> days = response.body();
@@ -81,10 +79,10 @@ public class FutureActivity extends AppCompatActivity {
     // tạo adapter và truyền dự liệu vào recyclerview
     private void initRecyclerView(ArrayList<DayForecast> days) {
 
-        recyclerView = findViewById(R.id.view2);
+        RecyclerView recyclerView = findViewById(R.id.view2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        adapterTommorow = new FutureAdapter(days);
+        RecyclerView.Adapter adapterTommorow = new FutureAdapter(days);
         recyclerView.setAdapter(adapterTommorow);
     }
 
