@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
-                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Location is not found!", Toast.LENGTH_SHORT).show();
                     Log.d("Call API (Weather in Day): ", errorMessage);
                 }
                 loadingLayout.setVisibility(View.GONE);
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseWrapper> call, Throwable t) {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
-                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Location is not found!", Toast.LENGTH_SHORT).show();
                 Log.d("Call API (Weather in Day): ", failureMessage);
                 loadingLayout.setVisibility(View.GONE);
                 progressBar.setVisibility(View.GONE);
@@ -113,16 +113,15 @@ public class MainActivity extends AppCompatActivity {
                 else
                 {
                     String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
-                    Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(getApplicationContext(), "Location is not found!", Toast.LENGTH_SHORT).show();
                     Log.d("Call API (Hourly): ", errorMessage);
                 }
 
             }
-
             @Override
             public void onFailure(Call<ArrayList<HourForecast>> call, Throwable t) {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
-                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
                 Log.d("Call API (Hourly): ", failureMessage);
             }
         });
