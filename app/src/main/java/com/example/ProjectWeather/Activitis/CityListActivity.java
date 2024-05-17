@@ -12,6 +12,8 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -83,6 +85,8 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
             @Override
             public void onClick(View view)
             {
+                Animation shake = AnimationUtils.loadAnimation(CityListActivity.this, R.anim.shake);
+                view.startAnimation(shake);
                 progressBar.setVisibility(View.VISIBLE);
                 takeGPSLocation();
             }
@@ -193,7 +197,8 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
         cityList.add("San Diego");
         cityList.add("Dallas");
         cityList.add("San Jose");
-        cityList.add("HaNoi");
+        cityList.add("Ha Noi");
+        cityList.add("Da Nang");
     }
     private void filterCityList(String query) {
         filteredCityList.clear();

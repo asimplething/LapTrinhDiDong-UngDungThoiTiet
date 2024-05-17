@@ -7,6 +7,8 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -161,7 +163,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void setVariable() {
-        next7dayBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, FutureActivity.class)));
+        //next7dayBtn.setOnClickListener(v -> startActivity(new Intent(MainActivity.this, FutureActivity.class)));
+        next7dayBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Animation shake = AnimationUtils.loadAnimation(MainActivity.this, R.anim.shake);
+                view.startAnimation(shake);
+                startActivity(new Intent(MainActivity.this, FutureActivity.class));
+            }
+        });
     }
 
     //Ánh xạ các view trong file layout:
