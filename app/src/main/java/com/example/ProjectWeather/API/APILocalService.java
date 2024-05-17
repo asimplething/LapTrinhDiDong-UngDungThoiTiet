@@ -1,7 +1,7 @@
-package com.example.project158.API;
+package com.example.ProjectWeather.API;
 
-import com.example.project158.Domains.DayForecast;
-import com.example.project158.Domains.HourForecast;
+import com.example.ProjectWeather.Domains.DayForecast;
+import com.example.ProjectWeather.Domains.HourForecast;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -1,4 +1,4 @@
-package com.example.project158.Activitis;
+package com.example.ProjectWeather.Activitis;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project158.Adapters.CityAdapter;
-import com.example.project158.R;
+import com.example.ProjectWeather.Adapters.CityAdapter;
+import com.example.ProjectWeather.R;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.example.project158.Activitis;
+package com.example.ProjectWeather.Activitis;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -19,13 +19,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.project158.API.APILocalService;
-import com.example.project158.API.APIService;
-import com.example.project158.Adapters.HourlyAdapters;
-import com.example.project158.Domains.Current;
-import com.example.project158.Domains.HourForecast;
-import com.example.project158.Domains.ResponseWrapper;
-import com.example.project158.R;
+import com.example.ProjectWeather.API.APILocalService;
+import com.example.ProjectWeather.API.APIService;
+import com.example.ProjectWeather.Adapters.HourlyAdapters;
+import com.example.ProjectWeather.Domains.Current;
+import com.example.ProjectWeather.Domains.HourForecast;
+import com.example.ProjectWeather.Domains.ResponseWrapper;
+import com.example.ProjectWeather.R;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Anhxa();
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle("");
+        getSupportActionBar().setTitle("WeatherProject");
         // Lấy dữ liệu local của user
         oldUserLocation = getSharedPreferences("UserData", MODE_PRIVATE);
         userLocation =  oldUserLocation.getString("location","VietNam");

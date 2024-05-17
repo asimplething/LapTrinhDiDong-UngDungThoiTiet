@@ -1,4 +1,4 @@
-package com.example.project158.Adapters;
+package com.example.ProjectWeather.Adapters;
 
 import static android.app.Activity.RESULT_OK;
 
@@ -11,7 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.project158.R;
+import com.example.ProjectWeather.R;
 
 import java.util.List;
 

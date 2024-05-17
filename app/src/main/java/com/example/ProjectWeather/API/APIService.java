@@ -1,6 +1,6 @@
-package com.example.project158.API;
+package com.example.ProjectWeather.API;
 
-import com.example.project158.Domains.ResponseWrapper;
+import com.example.ProjectWeather.Domains.ResponseWrapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 

@@ -1,4 +1,4 @@
-package com.example.project158.Activitis;
+package com.example.ProjectWeather.Activitis;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +13,10 @@ import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.project158.API.APILocalService;
-import com.example.project158.Adapters.FutureAdapter;
-import com.example.project158.Domains.DayForecast;
-import com.example.project158.R;
+import com.example.ProjectWeather.API.APILocalService;
+import com.example.ProjectWeather.Adapters.FutureAdapter;
+import com.example.ProjectWeather.Domains.DayForecast;
+import com.example.ProjectWeather.R;
 
 import java.util.ArrayList;
 

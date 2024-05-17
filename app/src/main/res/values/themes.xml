@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.Project158" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.ProjectWeather" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
         <item name="colorPrimaryDark">@color/background_color</item>
@@ -11,5 +11,5 @@
     </style>
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
-    <style name="Theme.Project158" parent="Base.Theme.Project158" />
+    <style name="Theme.ProjectWeather" parent="Base.Theme.ProjectWeather" />
 </resources>
