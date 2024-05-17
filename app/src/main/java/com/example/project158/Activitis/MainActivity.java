@@ -27,6 +27,7 @@ import com.example.project158.Domains.HourForecast;
 import com.example.project158.Domains.ResponseWrapper;
 import com.example.project158.R;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -41,9 +42,12 @@ public class MainActivity extends AppCompatActivity {
     private View loadingLayout;
     private ProgressBar progressBar;
     private ImageView imgVWeather;
+
+    private TextView minMaxText;
     private SharedPreferences oldUserLocation;
     private String userLocation;
     Toolbar toolbar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -127,11 +131,12 @@ public class MainActivity extends AppCompatActivity {
     // Chỉnh lại dữ liệu trên app
     private void setLocationAndWeather(Current current, Current location) {
 
-        oldUserLocation.edit().putString("location",location.getCity()).apply();
+        oldUserLocation.edit().putString("location",location.getCity()).apply(); //chỉnh lại dữ liệu local trên máy
+
         tvLocationCur.setText(location.getNation() + ", " + location.getCity());
         tvConditionCur.setText(current.getCondition().getStatus());
         tvDayTimeCur.setText(location.getTime());
-        tvTempCur.setText(String.valueOf(current.getTemp()) + "℃");
+        tvTempCur.setText(current.getTemp() + "℃");
 
         Glide.with(getApplicationContext())
                 .load("https:" + current.getCondition().getIconPath())
@@ -139,6 +144,23 @@ public class MainActivity extends AppCompatActivity {
         tvUVCur.setText(String.valueOf(current.getUV()));
         tvWindSpeedCur.setText(String.valueOf(current.getWind_speed()) + " kph");
         tvHumidCur.setText(String.valueOf(current.getHumidity()));
+
+        // Tính toán nhiệt độ trung bình và nhiệt độ cao/thấp nhất trong ngày
+        double currentTemp = Double.parseDouble(current.getTemp());
+        double Temp_avg = 0;
+        int currentHour = 0;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            currentHour = LocalDateTime.now().getHour();
+        }
+        if (currentHour >= 0 && currentHour <= 5)
+            Temp_avg = currentTemp - Math.sin(((2 * Math.PI) / 24) * (currentHour - 14)) * 4;
+        else
+            Temp_avg = currentTemp - Math.sin(((2 * Math.PI) * (currentHour - 14) / 24) - (49 * Math.PI) / 32) * 4;
+
+        double currentMaxTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * (14 - 14) / 24) - (49 * Math.PI) / 32);
+        double currentMinTemperature = Temp_avg + 4 * Math.sin(((2 * Math.PI) * (4 - 14) / 24));
+        String minMax = "H:" + String.valueOf(currentMaxTemperature).substring(0,5) + "\t\t\t" + "L:" + String.valueOf(currentMinTemperature).substring(0,5) ;
+        minMaxText.setText(minMax);
     }
 
     private void setVariable() {
@@ -162,8 +184,9 @@ public class MainActivity extends AppCompatActivity {
         tvUVCur = findViewById(R.id.textViewRate1);
         tvWindSpeedCur = findViewById(R.id.textViewRate2);
         tvHumidCur = findViewById(R.id.textViewRate3);
-
+        minMaxText = findViewById(R.id.textViewMinMax);
         next7dayBtn = findViewById(R.id.nextBtn);
+
     }
 
     private void initRecyclerview(ArrayList<HourForecast> hours) {

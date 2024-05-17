@@ -50,7 +50,6 @@ public class FutureActivity extends AppCompatActivity {
                     ArrayList <DayForecast> days = response.body();
                     if (days!=null)
                     {
-                        Toast.makeText(getApplicationContext(), "da call api", Toast.LENGTH_SHORT).show();
                         initRecyclerView(days);
                         TextView textView10 = findViewById(R.id.textView10);
                         TextView textView = findViewById(R.id.textView);
