@@ -8,7 +8,6 @@ public class ResponseWrapper {
     @SerializedName("current")
     private Current current;
 
-
     public Location getLocation() {
         return location;
     }

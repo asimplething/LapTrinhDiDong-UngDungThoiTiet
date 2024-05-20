@@ -1,8 +1,11 @@
 package com.example.ProjectWeather.API;
 
+import com.example.ProjectWeather.Domains.Location;
 import com.example.ProjectWeather.Domains.ResponseWrapper;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
+import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Retrofit;
@@ -18,6 +21,9 @@ public interface APIService {
             .addConverterFactory(GsonConverterFactory.create(gson))
             .build()
             .create(APIService.class);
-@GET("current.json")
+    @GET("current.json")
     Call<ResponseWrapper> getWeatherDay(@Query("key") String APIKey, @Query("q") String CityName);
+    @GET("search.json")
+    Call<ArrayList<Location>> getLocations(@Query("key") String APIKey, @Query("q") String CityName);
+
 }
