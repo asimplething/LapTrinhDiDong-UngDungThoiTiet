@@ -11,12 +11,15 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -25,6 +28,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.ProjectWeather.API.APIService;
 import com.example.ProjectWeather.Adapters.CityAdapter;
 import com.example.ProjectWeather.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
@@ -37,13 +41,16 @@ import com.google.android.gms.tasks.OnTokenCanceledListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 public class CityListActivity extends AppCompatActivity implements CityAdapter.OnCityClickListener {
 
     private RecyclerView cityRecyclerView;
     private CityAdapter cityAdapter;
     private EditText cityEditText;
     private ProgressBar progressBar;
-    private List<String> cityList;
     private List<String> filteredCityList;
     private Button gpsButton;
 
@@ -79,6 +86,20 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
             }
             @Override
             public void afterTextChanged(Editable s) {}
+        });
+        // call api để tìm list danh sách thành phố dựa trên input
+        cityEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent)
+            {
+                String input = cityEditText.getText().toString();
+                if (!input.isEmpty() && i == EditorInfo.IME_ACTION_SEARCH) //search bằng nút tìm kiếm (không search khi user để trống input)
+                {
+                    progressBar.setVisibility(View.VISIBLE);
+                    callCityListAPI(input);
+                }
+                return false;
+            }
         });
         //gọi button gps listener
         gpsButton.setOnClickListener(new View.OnClickListener() {
@@ -179,13 +200,17 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
     private void initializeCitylist()
     {
         // Initialize city list and adapter
-        cityList = new ArrayList<>();
+
         filteredCityList = new ArrayList<>();
         cityAdapter = new CityAdapter(filteredCityList, this);
         // Set up RecyclerView
         cityRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         cityRecyclerView.setAdapter(cityAdapter);
-
+    }
+    private void filterCityList(String query) {
+        filteredCityList.clear();
+        ArrayList<String> cityListTmp = new ArrayList<>();
+        List<String> cityList = new ArrayList<>();
         // Simulated data for city list
         cityList.add("New York");
         cityList.add("Los Angeles");
@@ -199,16 +224,57 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
         cityList.add("San Jose");
         cityList.add("Ha Noi");
         cityList.add("Da Nang");
-    }
-    private void filterCityList(String query) {
-        filteredCityList.clear();
-        for (String city : cityList) {
-            if (city.toLowerCase().contains(query.toLowerCase())) {
+        cityList.add("Ho Chi Minh");
+        //lọc thành phố giống theo input đã nhập
+        for (String city : cityList)
+            if (city.toLowerCase().contains(query.toLowerCase()))
                 filteredCityList.add(city);
-            }
-        }
+
         filteredCityList.add(query);
         cityAdapter.notifyDataSetChanged();
+    }
+    private void callCityListAPI(String query)
+    {
+
+        APIService.serviceapi.getLocations("4c57a8be9b2b4def8d833930240905", "%"+query+"%").enqueue(new Callback<ArrayList<com.example.ProjectWeather.Domains.Location>>() {
+            @Override
+            public void onResponse(Call<ArrayList<com.example.ProjectWeather.Domains.Location>> call, Response<ArrayList<com.example.ProjectWeather.Domains.Location>> response) {
+                if(response.isSuccessful())
+                {
+                    filteredCityList.clear();
+                    ArrayList<com.example.ProjectWeather.Domains.Location> cityListAPI = response.body();
+                    if(cityListAPI != null && !cityListAPI.isEmpty())
+                    {
+                        for (com.example.ProjectWeather.Domains.Location location : cityListAPI) {
+                            String thisLocation = location.getCity(); //nếu không tìm thấy city thì lấy country
+                            if (!thisLocation.equals(""))
+                                filteredCityList.add(thisLocation +", "+location.getNation());
+                            else
+                                filteredCityList.add(location.getNation());
+                        }
+                        cityAdapter.notifyDataSetChanged();
+                    }
+                    else
+                    {
+                        Toast.makeText(CityListActivity.this,"The location doesn't seem to be found", Toast.LENGTH_LONG).show();
+                        Log.d("Call API (Locations):", "API didn't return locations!");
+                    }
+
+                }
+                progressBar.setVisibility(View.GONE);
+            }
+            @Override
+            public void onFailure(Call<ArrayList<com.example.ProjectWeather.Domains.Location>> call, Throwable t)
+            {
+                //nếu không call được API thì dùng mảng thành phố có sẵn
+                filterCityList(query);
+                //log lỗi
+                String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
+                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                Log.d("Call API (Locations):", failureMessage);
+                progressBar.setVisibility(View.GONE);
+            }
+        });
     }
 
     @Override

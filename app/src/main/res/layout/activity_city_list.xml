@@ -34,7 +34,8 @@
             android:inputType="textPostalAddress"
             android:padding="8dp"
             android:textColorHint="@color/black"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:imeOptions="actionSearch"/>
 
         <TextView
             android:id="@+id/orText"
