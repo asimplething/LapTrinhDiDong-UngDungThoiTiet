@@ -53,7 +53,7 @@
                 android:text="Mostly Cloudy"
                 android:textAlignment="center"
                 android:textColor="@color/text_color"
-                android:textSize="20sp" />
+                android:textSize="23sp" />
 
             <ImageView
                 android:id="@+id/imageViewWeather"

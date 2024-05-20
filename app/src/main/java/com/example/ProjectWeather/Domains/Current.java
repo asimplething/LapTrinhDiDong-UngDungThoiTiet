@@ -3,16 +3,13 @@ package com.example.ProjectWeather.Domains;
 import com.google.gson.annotations.SerializedName;
 
 public class Current {
-    @SerializedName("localtime")
+    @SerializedName("last_updated")
     private String time;
     @SerializedName("temp_c")
     private String temp;
     @SerializedName("condition")
     private Condition condition;
-    @SerializedName("country")
-    private String nation;
-    @SerializedName("name")
-    private String city;
+
     @SerializedName("wind_kph")
     private float wind_speed;
     @SerializedName("humidity")
@@ -46,21 +43,6 @@ public class Current {
         this.condition = condition;
     }
 
-    public String getNation() {
-        return nation;
-    }
-
-    public void setNation(String nation) {
-        this.nation = nation;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
 
     public float getWind_speed() {
         return wind_speed;

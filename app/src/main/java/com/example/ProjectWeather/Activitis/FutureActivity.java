@@ -3,6 +3,8 @@ package com.example.ProjectWeather.Activitis;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -84,6 +86,8 @@ public class FutureActivity extends AppCompatActivity {
 
         RecyclerView.Adapter adapterTommorow = new FutureAdapter(days);
         recyclerView.setAdapter(adapterTommorow);
+
+
     }
 
     private void setVariable() {

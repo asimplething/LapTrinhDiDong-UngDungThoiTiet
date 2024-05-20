@@ -4,17 +4,16 @@ import com.google.gson.annotations.SerializedName;
 
 public class ResponseWrapper {
     @SerializedName("location")
-    private Current location;
+    private Location location;
     @SerializedName("current")
     private Current current;
 
 
-
-    public Current getLocation() {
+    public Location getLocation() {
         return location;
     }
 
-    public void setLocation(Current location) {
+    public void setLocation(Location location) {
         this.location = location;
     }
 
