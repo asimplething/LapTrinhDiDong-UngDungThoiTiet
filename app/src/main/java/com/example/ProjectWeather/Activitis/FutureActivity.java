@@ -53,12 +53,17 @@ public class FutureActivity extends AppCompatActivity {
                         initRecyclerView(days);
                         TextView textView10 = findViewById(R.id.textView10);
                         TextView textView = findViewById(R.id.textView);
-
+                        TextView textViewWindS = findViewById(R.id.textView3);
+                        TextView textViewHumid = findViewById(R.id.textView5);
+                        String formattedWindSpeed = String.format("%.2f", days.get(0).getWind_s());
+                        textViewWindS.setText(formattedWindSpeed + "\tkph");
+                        textViewHumid .setText(days.get(0).getHumidity()+"\t%");
                         double avrTemp = (Double.parseDouble(days.get(0).getMaxTemperature()) + Double.parseDouble(days.get(0).getMinTemperature()))/2;
                         textView10.setText(String.valueOf(avrTemp).substring(0,5));
 
                         String chanceOfRain = days.get(0).getChanceOfRain()+"%";
                         textView.setText(chanceOfRain);
+
 
                     }
                 }

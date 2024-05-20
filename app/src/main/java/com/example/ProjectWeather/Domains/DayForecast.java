@@ -11,6 +11,26 @@ public class DayForecast {
     String chanceOfRain;
     @SerializedName("minTemperature")
     String minTemperature;
+    @SerializedName("humidity")
+    int humidity;
+    @SerializedName( "wind_speed")
+    float wind_s;
+
+    public int getHumidity() {
+        return humidity;
+    }
+
+    public void setHumidity(int humidity) {
+        this.humidity = humidity;
+    }
+
+    public float getWind_s() {
+        return wind_s;
+    }
+
+    public void setWind_s(float wind_s) {
+        this.wind_s = wind_s;
+    }
 
     public String getDayOfWeek() {
         return dayOfWeek;
