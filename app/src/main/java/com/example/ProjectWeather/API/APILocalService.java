@@ -14,7 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Query;
 
 public interface APILocalService {
-    public static final String BASE_URL = "http://192.168.12.1:8188/api/weather/";
+    public static final String BASE_URL = "http://192.168.1.3:8188/api/weather/";
     Gson gson = new GsonBuilder(). setDateFormat("yyyy MM dd HH:mm: ss").create();
     APILocalService serviceapi = new Retrofit.Builder()
             .baseUrl(BASE_URL)
