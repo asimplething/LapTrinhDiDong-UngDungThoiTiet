@@ -23,6 +23,6 @@
   
 ## 4.Thành viên thực hiện:
 + Đỗ Văn Tiến_22162049
-+ Nguyễn Hoàng Tung_22162053
++ Nguyễn Hoàng Tùng_22162053
 + Nguyễn Quốc Vinh_22162056
 + Phạm Quang Vinh_22162057.
