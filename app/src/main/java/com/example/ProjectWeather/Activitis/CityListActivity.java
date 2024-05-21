@@ -286,4 +286,3 @@ public class CityListActivity extends AppCompatActivity implements CityAdapter.O
         finish();
     }
 }
-

@@ -69,7 +69,7 @@ public class FutureActivity extends AppCompatActivity {
                 }
                 else
                 {
-                    String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body();
+                    String errorMessage = "Request failed with code: " + response.message() + response.code() + response.body()+"from else";
                     Toast.makeText(getApplicationContext(), errorMessage, Toast.LENGTH_SHORT).show();
                     Log.d("Call API (Weather in Day): ", errorMessage);
                 }
@@ -78,7 +78,7 @@ public class FutureActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Call<ArrayList<DayForecast>> call, Throwable t) {
                 String failureMessage = "Request failed with code: " + t.getMessage() + t.getCause();
-                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Request failed: " + failureMessage+" from onFailure", Toast.LENGTH_SHORT).show();
                 Log.d("Call API (Weather in 7 days): ", failureMessage);
             }
         });
