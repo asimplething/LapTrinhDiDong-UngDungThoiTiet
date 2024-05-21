@@ -50,6 +50,9 @@
             holder.itemView.setOnClickListener(v -> {
                 Intent intent = new Intent(context, Summary_Activity.class);
                 intent.putExtra("maxTemperature", items.get(position).getMaxTemperature());
+                intent.putExtra("minTemperature", items.get(position).getMinTemperature());
+                intent.putExtra("chanceOfRain",items.get(position).getChanceOfRain());
+                intent.putExtra("day",items.get(position).getDayOfWeek());
                 context.startActivity(intent);
             });
         }

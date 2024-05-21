@@ -55,7 +55,7 @@ public class FutureActivity extends AppCompatActivity {
                         TextView textView = findViewById(R.id.textView);
                         TextView textViewWindS = findViewById(R.id.textView3);
                         TextView textViewHumid = findViewById(R.id.textView5);
-                        String formattedWindSpeed = String.format("%.2f", days.get(0).getWind_s());
+                        String formattedWindSpeed = days.get(0).getWind_s().substring(0,2); //String.format("%.2f", days.get(0).getWind_s());
                         textViewWindS.setText(formattedWindSpeed + "\tkph");
                         textViewHumid .setText(days.get(0).getHumidity()+"\t%");
                         double avrTemp = (Double.parseDouble(days.get(0).getMaxTemperature()) + Double.parseDouble(days.get(0).getMinTemperature()))/2;
@@ -97,6 +97,7 @@ public class FutureActivity extends AppCompatActivity {
 
     private void setVariable() {
         ConstraintLayout backBtn = findViewById(R.id.backBtn);
-        backBtn.setOnClickListener(v -> startActivity(new Intent(FutureActivity.this, MainActivity.class)));
+        backBtn.setOnClickListener(v -> finish());
+
     }
 }

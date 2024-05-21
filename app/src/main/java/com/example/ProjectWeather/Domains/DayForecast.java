@@ -12,23 +12,23 @@ public class DayForecast {
     @SerializedName("minTemperature")
     String minTemperature;
     @SerializedName("humidity")
-    int humidity;
+    String humidity;
     @SerializedName( "wind_speed")
-    float wind_s;
+    String wind_s;
 
-    public int getHumidity() {
+    public String getHumidity() {
         return humidity;
     }
 
-    public void setHumidity(int humidity) {
+    public void setHumidity(String humidity) {
         this.humidity = humidity;
     }
 
-    public float getWind_s() {
+    public String getWind_s() {
         return wind_s;
     }
 
-    public void setWind_s(float wind_s) {
+    public void setWind_s(String wind_s) {
         this.wind_s = wind_s;
     }
 
