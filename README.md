@@ -3,12 +3,13 @@
 
 ## 1. Công cụ sử dụng:
 
-+ Ngôn ngữ lập trình: Java.
-+ Database: SQLServer.
-+ IDE: Android Studio.
-+ Environment Runtime: JDK 21.
-+ API Test: Postman.
-  
++ Ngôn ngữ lập trình: `Java`.
++ Database: `SQLServer`.
++ IDE: `Android Studio`.
++ Environment Runtime: `JDK 21`.
++ Testing API Tool: `Postman`.
++ Local API: [API_DuBaoThoiTiet](https://github.com/asimplething/API_DuBaoThoiTiet)
++ Open Source API: [Weatherapi](https://api.weatherapi.com/)
 ## 2. Cách cài đặt:
 
 + Clone: https://github.com/asimplething/LapTrinhDiDong-UngDungThoiTiet
